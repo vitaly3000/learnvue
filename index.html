@@ -9,10 +9,26 @@
   <body>
     <div class="container pt-5" id="app">
       <div class="card center">
-        <h1>{{ title }} {{ counter }}</h1>
+        <h1>{{ title }}</h1>
         <div>
-          <button class="btn" v-on:click="counter++">+</button>
-          <button class="btn" v-on:click="counter--">-</button>
+          <input
+            type="text"
+            :placeholder="placeholder"
+            v-model="inputValue"
+            @keypress.enter="addNote"
+          />
+          <h2>{{ inputValue }}</h2>
+
+          <button class="btn" v-on:click="addNote">Добавить</button>
+          <hr v-if="notes.length !== 0"/>
+          <ul>
+            <li v-for="(note, index) in notes">
+              {{ note }}
+              <button class="btn" v-on:click="deleteNote(index, $event)">Delete</button>
+            </li>
+          </ul>
+          <hr>
+          <h3><b>Общее количество: {{ notes.length }}</b> {{ double }}</h3>
         </div>
       </div>
     </div>
